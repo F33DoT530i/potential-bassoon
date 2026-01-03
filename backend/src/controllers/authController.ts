@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
+import jwt, { SignOptions } from 'jsonwebtoken';
 import Joi from 'joi';
 import { User } from '../models/User';
 import { config } from '../config';
@@ -19,9 +19,10 @@ const loginSchema = Joi.object({
 
 // Generate JWT token
 const generateToken = (id: string): string => {
-  return jwt.sign({ id }, config.jwtSecret, {
-    expiresIn: config.jwtExpire,
-  });
+  const options: SignOptions = {
+    expiresIn: config.jwtExpire as any,
+  };
+  return jwt.sign({ id }, config.jwtSecret, options);
 };
 
 // @desc    Register new user
