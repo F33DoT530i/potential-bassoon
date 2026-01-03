@@ -11,10 +11,10 @@ import { createLimiter, apiLimiter } from '../middleware/rateLimiter';
 
 const router = Router();
 
-// All routes require authentication
-router.use(authenticate);
+// All routes require authentication and rate limiting
+router.use(apiLimiter, authenticate);
 
-router.route('/').get(apiLimiter, getTasks).post(createLimiter, createTask);
-router.route('/:id').get(apiLimiter, getTask).put(apiLimiter, updateTask).delete(apiLimiter, deleteTask);
+router.route('/').get(getTasks).post(createLimiter, createTask);
+router.route('/:id').get(getTask).put(updateTask).delete(deleteTask);
 
 export default router;
