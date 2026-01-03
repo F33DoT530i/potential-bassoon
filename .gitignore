@@ -29,6 +29,7 @@ yarn.lock
 dist/
 build/
 *.tsbuildinfo
+coverage/
 
 # Environment variables
 .env
